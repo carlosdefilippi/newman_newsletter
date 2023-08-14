@@ -1,0 +1,45 @@
+import openai
+openai.api_key = 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
+
+def generate_newsletter_content(sermon_title, sermon_year, sermon_place, sermon_text):
+    # Generate the sermon summary
+    prompt = f"Summarize the following sermon:\n{sermon_text}\n\nSummary:"
+    response = openai.Completion.create(
+        engine="davinci-codex",
+        prompt=prompt,
+        max_tokens=100
+    )
+    summary = response.choices[0].text.strip()
+
+    # Generate the most poetic paragraph
+    poetic_paragraph = "The most poetic paragraph..."
+
+    # Generate the last paragraph
+    last_paragraph = "The last paragraph..."
+
+    # Generate reflective questions
+    questions = ["Question 1: ...", "Question 2: ...", "Question 3: ..."]
+
+    # Generate the weekly challenge
+    challenge = f"Weekly Challenge: Practice a virtue related to {sermon_title}."
+    example = "Example: ..."
+
+    # Combine all generated content
+    newsletter_content = f"Sermon Title: {sermon_title}\nYear: {sermon_year}\nPlace: {sermon_place}\n\n" \
+                         f"Summary: {summary}\n\n" \
+                         f"Poetic Paragraph: {poetic_paragraph}\n\n" \
+                         f"Last Paragraph: {last_paragraph}\n\n" \
+                         f"Reflective Questions:\n" + "\n".join(questions) + "\n\n" \
+                         f"Weekly Challenge: {challenge}\nExample: {example}"
+
+    return newsletter_content
+
+# Read sermon details from user input
+sermon_title = input("Enter sermon title: ")
+sermon_year = input("Enter sermon year: ")
+sermon_place = input("Enter sermon place: ")
+sermon_text = input("Enter sermon text: ")
+
+# Generate and print the newsletter content
+newsletter_content = generate_newsletter_content(sermon_title, sermon_year, sermon_place, sermon_text)
+print("Newsletter Content:\n", newsletter_content)
